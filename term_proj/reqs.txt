@@ -1,0 +1,24 @@
+ENTITIES
+1. COURSE
+2. SECTION
+3. PROFESSOR
+4. SET
+5. PROGRESS
+6. TERMss
+7. PROGRESS_LOG
+8. LAB_SESSION
+9. LABss
+10. LECTUREss
+11. STUDENT
+12. SECTION_TEACHER_ALLOCATION
+13. SUBMISSION
+14. ENROLLMENT
+15. DEPARTMENT
+
+submission, progress_log,
+progress, enrollment
+section_teacher_allocation, lab_session, lecture, lab
+section, student, course, professor
+tern, department, set
+
+

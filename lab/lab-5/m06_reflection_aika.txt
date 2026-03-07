@@ -1,0 +1,45 @@
+DELETE SCENARIOS
+1. Try deleting the COMP department. Note whether this is blocked by FK rules.
+    When trying to delete the COMP department, got the error 'update or delete on table "department" 
+    violates foreign key constraint "professor_dept_code_fkey" on table "professor"'.
+
+    PostgreSQL prevents the deletion to avoid leaving the professor and student without a department.
+    This is because we established referential integrity constraints in the logical model, like saying
+    that this is a mandatory relationship where the 'professor' and 'student' entities are existent
+    dependent on 'department' identity. If the deletion worked, then they would be orphaned records.
+
+2. Delete the lab L2 you created and observe whether related enrollments are deleted or restricted.
+    Never created a L2, I did try to delete L1 though and it wokred. The offering was successfully
+    deleted and it reflected on the 'enrollment' table. Since we defined 'ON DELETE CASCADE', it 
+    automatically deletes all student enrollments for that specific section. Since that offering
+    doesn't exist anymore, it makes sense that no students can remain enrolled in a class that
+    no longer exists.
+
+3. Try deleting a location currently used by a department or course offering.
+    Trying to delete a location used by a department or course offering (e.g.'SE12 260') also gave an
+    error similar to when we tried to delete the COMP department. 'update or delete on table "location" 
+    violates foreign key constraint "department_dept_location_fkey" on table "department"'. Same explanation.
+    Cannot delete a room if the system knows that there something still resides there.
+
+REFLECTION QUESTIONS
+1. Which tables or constraints caused errors?
+    a. Trying to insert Min Chen when admit term '202650' didn't exist yet.
+    b. My old schema I did the composite keys correctly, but did so in a way I made it as multiple
+       inputs in other tables so the input examples didnt work.
+       Example:
+            - I did: PRIMARY KEY (loc_building, loc_room)
+            - Instead of doing: loc_code GENERATED ALWAYS AS (...), PRIMARY KEY (loc_code)
+    c. Referential Integrity Blocks: Trying to delete a strong entity before removing dependents.
+    d. Syntax errors and minor changes on data types.
+
+2. What changes did you make to fix them?
+    a. Ordered inserts properly, also made sure all the tables loaded in proper order. Making sure to
+    create parent tables first and then making sure to truncate children first.
+    b. Data alignment and changing the data types in my schema, picking out new PKs, etc.
+    c. Added more constraints for better data integrity (like BCIT IDs can't have special characters).
+
+3. What do these problems reveal about your schema design?
+    a. Existence dependence, errors proving that the design has to be reflected and enforce these 
+    mandatory relationships from logical to relational.
+    b. Automating some keys and columns to reduce error and for better consistency.
+    c. Design defensively with RESTRICT to protect database core infrastructure.
