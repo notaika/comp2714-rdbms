@@ -1,0 +1,9 @@
+assignment_id,course_code,term_code,lab_number,title
+LAB01,COMP2714,202530,1,Environment Setup & Intro SQL
+LAB02,COMP2714,202530,2,Conceptual → Logical Mapping
+LAB03,COMP2714,202530,3,Logical ERD & Constraints
+LAB04,COMP2714,202530,4,Normalization to 3NF
+LAB05,COMP2714,202530,5,DDL Implementation
+LAB06,COMP2714,202530,6,DML: INSERT/UPDATE/DELETE
+LAB07,COMP2714,202530,7,SELECT & JOIN Practice
+LAB08,COMP2714,202530,8,Views & Indexes

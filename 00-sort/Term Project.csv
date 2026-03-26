@@ -1,0 +1,28 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Status,Text Area 1,Text Area 2,Text Area 3,Text Area 4,Text Area 5,Text Area 6,Text Area 7,Text Area 8,Text Area 9,Text Area 10,Text Area 11,Text Area 12,Text Area 13,Text Area 14,Text Area 15,Text Area 16,Text Area 17,Text Area 18,Text Area 19,Text Area 20,Text Area 21,Text Area 22,Text Area 23,Text Area 24,Text Area 25,Text Area 26,Text Area 27,Text Area 28,Text Area 29,Text Area 30,Text Area 31,Text Area 32,Text Area 33,Text Area 34,Text Area 35,Text Area 36,Text Area 37,Text Area 38,Text Area 39,Text Area 40,Comments
+1,Document,,,,,Draft,Term Project,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+2,Page,,,,,,Page 1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,"Entity (Key, Field, Type)",Entity Relationship,2,,,,COURSE,PK,CRS_SUBJ,VARCHAR(8),PK,CRS_NUM,INTEGER,,CRS_TITLE,VARCHAR(120),,CRS_CREDS,"NUMERIC(3, 1)",,CRS_DESC,TEXT,,,,,,,,,,,,,,,,,,,,,,,,,
+4,"Entity (Key, Field, Type)",Entity Relationship,2,,,,SECTION,"PK, FK",TERM_SEM,TEXT (ENUM),"PK, FK",TERM_YEAR,SMALLINT,"PK, FK",CRS_SUBJ,VARCHAR(8),"PK, FK",CRS_NUM,INTEGER,,SEC_LOC,,,SEC_TYPE,,,SEC_START_TIME,,,SEC_END_TIME,,,SEC_DAYS,,,SEC_CAP,INTEGER (1 - 999),FK,PROF_PRIMARY,,,,,,,,
+5,"Entity (Key, Field, Type)",Entity Relationship,2,,,,PROFESSOR,PK,PROF_ID,VARCHAR(10) (^A[0-9]{8}$),,PROF_LAST_NAME,,,PROF_FIRST_NAME,,,PROF_DOB,,,PROF_EMAIL,,,PROF_PHONE,,,PROF_HIRE_DATE,DATE (CURR_DATE),,,,,,,,,,,,,,,,,,,
+6,"Entity (Key, Field, Type)",Entity Relationship,2,,,,LAB_SESSION,"PK, FK",CRS_SUBJ,VARCHAR(8),"PK, FK",CRS_NUM,INTEGER (1 - 9999),"PK, FK",TERM_SEM,,"PK, FK",TERM_YEAR,,,SES_MEET_DATES,,,SES_DUE_DATES,,,SES_START_TIME,TIME,,SES_END_TIME,TIME,,SES_LOC,,FK,PROF_ID,VARCHAR(10),,,,,,,,,,
+7,"Entity (Key, Field, Type)",Entity Relationship,2,,,,STUDENT,PK,STU_ID,VARCHAR(10) (^A[0-9]{8}$),,STU_LAST_NAME,VARCHAR(50),,STU_FIRST_NAME,VARCHAR(50),,STU_DOB,,FK,STU_SET,,FK,STU_TERM,,,STU_ADMIT_DATE,DATE (CURR_DATE),,STU_EMAIL,VARCHAR(50),,STU_PHONE,,,,,,,,,,,,,,
+8,"Entity (Key, Field, Type)",Entity Relationship,2,,,,SET,PK,SET_NAME,,PK,TERM_SEM,,PK,TERM_YEAR,,,SET_CAPACITY,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+9,"Entity (Key, Field, Type)",Entity Relationship,2,,,,TERM,PK,TERM_SEM,TEXT (ENUM),PK,TERM_YEAR,SMALLINT,,TERM_NAME,,,TERM_SEM,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+10,"Entity (Key, Field, Type)",Entity Relationship,2,,,,LECTURE,"PK, FK",TERM_SEM,TEXT (ENUM),"PK, FK",TERM_YEAR,SMALLINT,"PK, FK",CRS_SUBJ,VARCHAR(8),"PK, FK",CRS_NUM,INTEGER,,LEC_NAME,,,,,,,,,,,,,,,,,,,,,,,,,,
+11,"Entity (Key, Field, Type)",Entity Relationship,2,,,,SUBMISSION,"PK, FK",CRS_SUBJ,VARCHAR(8),"PK, FK",CRS_NUM,INTEGER (1 - 9999),"PK, FK",STU_ID,VARCHAR(10) (^A[0-9]{8}$),,SUB_ITEM,VARCHAR(255) (A LINK),,SUB_TIMESTAMP,TIME (CURR_TIME),,,,,,,,,,,,,,,,,,,,,,,,,
+12,"Entity (Key, Field, Type)",Entity Relationship,2,,,,PROGRESS,"PK, FK",STU_ID,VARCHAR(10) (^A[0-9]{8}$),"PK, FK",CRS_SUBJ,VARCHAR(8),"PK, FK",CRS_NUM,INTEGER (1 - 9999),"PK, FK",TERM_SEM,TEXT (ENUM),"PK, FK",TERM_YEAR,SMALLINT,,PROG_ATTENDANCE,TEXT (ENUM),,PROG_PREPARENESS,BOOLEAN,FK,PROG_LAB_SUBMIT,VARCHAR(255) (LINK),FK,PROG_FINAL_SUBMIT,VARCHAR(255) (LINK),,PROG_SELF_SCORE,DOUBLE (0.0 - 100.0),,PROG_PROF_SCORE,DOUBLE (0.0 - 100.0),,PROG_NOTES,TEXT,FK,PROG_DUE_DATE,DATETIME,
+13,"Entity (Key, Field, Type)",Entity Relationship,2,,,,PROGRESS_LOG,"PK, FK",STU_ID,VARCHAR(10) (^A[0-9]{8}$),"PK, FK",CRS_SUBJ,VARCHAR(8),"PK, FK",CRS_NUM,INTEGER (1 - 9999),"PK, FK",TERM_SEM,TEXT (ENUM),"PK, FK",TERM_YEAR,SMALLINT,,LOG_CHANGES,TEXT,FK,LOG_EDITED_BY,VARCHAR(10) (^A[0-9]{8}$),,LOG_TIMESTAMP,DATETIME,,,,,,,,,,,,,,,,
+14,"Entity (Key, Field, Type)",Entity Relationship,2,,,,LAB,"PK, FK",TERM_SEM,TEXT (ENUM),"PK, FK",TERM_YEAR,SMALLINT,"PK, FK",CRS_SUBJ,VARCHAR(8),"PK, FK",CRS_NUM,INTEGER,,LAB_NAME,,FK,LAB_SET,,,,,,,,,,,,,,,,,,,,,,,
+15,Sticky note,Sticky Notes,2,,,,"NOTES:
+All Primary Keys with identifying relationships will be defined as a surrogate key in the schema.
+e.g. CONSTRAINT section_pk PRIMARY KEY (TERM_SEM, TERM_YEAR, CRS_SUBJ, CRS_NUM)
+
+CONSTRAINTS:
+PROF_ID and STUDENT_ID cannot contain special  characters and is strictly alphanumeric.
+TERM_SEM - TEXT (ENUM) ['Winter' = 10, 'Spring' = 30, 'Summer' = 40, 'Fall' = 50].
+PROG_LAB_SUBMIT and PROG_FINAL_SUBMIT will give back a link of the submission file
+PROG_FINAL_SUBMIT will automatically get updated to the file that was last submitted before a due date.
+PROG_ATTENDANCE - TEXT (ENUM) ['Present', 'Absent', 'Late', 'Excused']
+PROG_DUE_DATE  is an FK from LAB_SESSION SES_DUE_DATES.
+Dates with CURR_DATE are default values. Whenever they are created, they automatically get the current date.
+There's other constraints... but they're pretty straight forward for the rest; mostly just ranges.",Aika Manalo,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
